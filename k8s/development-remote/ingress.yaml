@@ -1,24 +1,24 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: dev-customerName-projectName-backend-ingress
-  namespace: dev-customerName-projectName-backend
+  name: dev-project-kubequest-backend-ingress
+  namespace: dev-project-kubequest-backend
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - dev.example.api.flapi.org
-      secretName: dev-customerName-projectName-backend-tls
+        - dev.kubequest.api.flapi.org
+      secretName: dev-project-kubequest-backend-tls
   rules:
-    - host: dev.example.api.flapi.org
+    - host: dev.kubequest.api.flapi.org
       http:
         paths:
           - pathType: Prefix
             path: '/'
             backend:
               service:
-                name: dev-customerName-projectName-backend-service
+                name: dev-project-kubequest-backend-service
                 port:
                   number: 3333

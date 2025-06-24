@@ -1,12 +1,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: staging-customerName-projectName-backend-cert
-  namespace: staging-customerName-projectName-backend
+  name: staging-project-kubequest-backend-cert
+  namespace: staging-project-kubequest-backend
 spec:
-  secretName: staging-customerName-projectName-backend-tls
+  secretName: staging-project-kubequest-backend-tls
   dnsNames:
-    - staging.example.api.flapi.org
+    - staging.kubequest.api.flapi.org
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
