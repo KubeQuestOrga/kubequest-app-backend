@@ -79,4 +79,3 @@ jobs:
           git add k8s/development-remote/deployment.yaml
           git commit -m "ci: update image tag to develop-${{ github.sha }}"
           git push
-

@@ -9,10 +9,10 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1               # Un nouveau pod en plus des existants max
-      maxUnavailable: 0         # Aucun pod ne doit être indisponible pendant l'update (zero-downtime)
-  progressDeadlineSeconds: 300  # Timeout max pour un déploiement (rollback si dépassé)
-  revisionHistoryLimit: 5       # Garde les 5 dernières versions pour rollback
+      maxSurge: 1 # Un nouveau pod en plus des existants max
+      maxUnavailable: 0 # Aucun pod ne doit être indisponible pendant l'update (zero-downtime)
+  progressDeadlineSeconds: 300 # Timeout max pour un déploiement (rollback si dépassé)
+  revisionHistoryLimit: 5 # Garde les 5 dernières versions pour rollback
   selector:
     matchLabels:
       app: staging-project-kubequest-backend
@@ -22,17 +22,17 @@ spec:
         app: staging-project-kubequest-backend
     spec:
       affinity:
-          podAntiAffinity:
-            preferredDuringSchedulingIgnoredDuringExecution: # C’est une préférence, pas une obligation -> si ce n’est pas possible, le pod sera quand même programmé
-              - weight: 100
-                podAffinityTerm:
-                  labelSelector:
-                    matchExpressions:
-                      - key: app
-                        operator: In
-                        values:
-                          - staging-project-kubequest-backend
-                  topologyKey: kubernetes.io/hostname
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution: # C’est une préférence, pas une obligation -> si ce n’est pas possible, le pod sera quand même programmé
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - staging-project-kubequest-backend
+                topologyKey: kubernetes.io/hostname
       containers:
         - name: staging-project-kubequest-backend
           image: corentin35/project-kubequest-backend:staging-${TAG_VERSION}
