@@ -80,3 +80,4 @@ jobs:
             -f k8s/staging/deployment.yaml 
             -f k8s/staging/ingress.yaml 
             -f k8s/staging/service.yaml
+            -f k8s/staging/hpa.yaml
