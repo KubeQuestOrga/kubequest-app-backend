@@ -1,4 +1,4 @@
-# Flapi - project kubequest - BackEnd
+# Kubequest - WebSote - Backend
 
 ## 🛠 Tech Stack
 
