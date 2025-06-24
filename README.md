@@ -1,4 +1,4 @@
-# Kubequest - WebSote - Backend
+# Kubequest - WebSite - Backend
 
 ## 🛠 Tech Stack
 
