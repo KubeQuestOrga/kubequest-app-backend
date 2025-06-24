@@ -1,8 +1,9 @@
 name: tests_build_deploy_cluster_development-remote
 
 on:
-  repository_dispatch:
-    types: [deploy-to-init-project]
+  push:
+    branches:
+      - develop
   workflow_dispatch:
 
 jobs:

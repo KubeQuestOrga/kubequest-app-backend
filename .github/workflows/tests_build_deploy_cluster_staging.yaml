@@ -1,8 +1,9 @@
 name: tests_build_deploy_cluster_staging
 
 on:
-  repository_dispatch:
-    types: [deploy-to-init-project]
+  push:
+    branches:
+      - staging
   workflow_dispatch:
 
 jobs:
