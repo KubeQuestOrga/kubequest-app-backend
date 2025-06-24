@@ -69,16 +69,13 @@ jobs:
         run: |
           sed -i 's/\${TAG_VERSION}/'${{ github.sha }}'/g' k8s/staging/deployment.yaml
 
-      - name: Connect to the cluster K3S for deploy
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
-        with:
-          args: |
-            apply -f k8s/staging/namespace.yaml 
-            -f k8s/staging/certificate.yaml 
-            -f k8s/staging/docker-registry-secret.yaml 
-            -f k8s/staging/deployment.yaml 
-            -f k8s/staging/ingress.yaml 
-            -f k8s/staging/service.yaml
-            -f k8s/staging/hpa.yaml
+      - name: Commit and push updated deployment
+        run: |
+          git config user.name "ci"
+          git config user.email "ci@github.com"
+
+          git fetch origin
+          git checkout staging
+          git add k8s/staging/deployment.yaml
+          git commit -m "ci: update image tag to staging-${{ github.sha }}"
+          git push
