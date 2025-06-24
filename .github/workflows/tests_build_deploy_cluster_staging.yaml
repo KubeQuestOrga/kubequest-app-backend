@@ -68,12 +68,19 @@ jobs:
       - name: Replace image tag in deployment.yaml for Kubernetes
         run: |
           sed -i 's/\${TAG_VERSION}/'${{ github.sha }}'/g' k8s/staging/deployment.yaml
+          
+      - name: Configure Git user
+        run: |
+          git config user.name "ci"
+          git config user.email "ci@flapi.org"
+
+      - name: Authenticate with PAT
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
+          git remote -v
 
       - name: Commit and push updated deployment
         run: |
-          git config user.name "ci"
-          git config user.email "ci@github.com"
-
           git fetch origin
           git checkout staging
           git add k8s/staging/deployment.yaml
