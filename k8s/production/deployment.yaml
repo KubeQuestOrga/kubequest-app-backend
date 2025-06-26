@@ -6,12 +6,25 @@ metadata:
   labels:
     app: prod-project-kubequest-backend
 spec:
-  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
+      maxSurge: 1 # Un nouveau pod en plus des existants max
+      maxUnavailable: 0 # Aucun pod ne doit être indisponible pendant l'update (zero-downtime)
+  progressDeadlineSeconds: 300 # Timeout max pour un déploiement (rollback si dépassé)
+  revisionHistoryLimit: 5 # Garde les 5 dernières versions pour 
+  affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution: # C’est une préférence, pas une obligation -> si ce n’est pas possible, le pod sera quand même programmé
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - prod-project-kubequest-backend
+          topologyKey: kubernetes.io/hostname
   selector:
     matchLabels:
       app: prod-project-kubequest-backend
