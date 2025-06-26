@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: prod-project-kubequest-backend
-          image: corentin35/project-kubequest-backend:${TAG_VERSION}
+          image: corentin35/project-kubequest-backend:1.0.0
           imagePullPolicy: Always
           ports:
             - containerPort: 3333
